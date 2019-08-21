@@ -1,0 +1,30 @@
+Eureka 服务注册发现
+http://localhost:8761/
+
+服务提供者   修改端口实现负载均衡
+http://localhost:8762/hi?message=aaa
+http://localhost:8763/hi?message=aaa
+
+Ribbon 方式消费
+http://localhost:8764/hi?message=HelloRibbon
+
+Feign 方式消费
+http://localhost:8765/hi?message=HelloFeign
+
+
+熔断器的监视器（仪表盘） 配置类
+//1.浏览器端访问 http://localhost:8764/hystrix
+//2.http://localhost:8765/hystrix.stream
+//3.设置title
+
+zuul设置 api 网关 路由分发
+依次运行 EurekaApplication、ServiceAdminApplication、
+WebAdminRibbonApplication、
+WebAdminFeignApplication、ZuulApplication
+打开浏览器访问：http://localhost:8769/api/a/hi?message=HelloZuul
+浏览器显示
+Hi，your message is :"HelloZuul" i am from port：8763
+打开浏览器访问：http://localhost:8769/api/b/hi?message=HelloZuul
+浏览器显示
+Hi，your message is :"HelloZuul" i am from port：8763
+至此说明 Zuul 的路由功能配置成功

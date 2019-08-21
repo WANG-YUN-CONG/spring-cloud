@@ -1,0 +1,23 @@
+
+spring:
+  application:
+    name: hello-spring-cloud-config
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+#        http项目地址
+          uri: https://git.lug.ustc.edu.cn/yuncong/spring-cloud-config.git
+#          要上传文件夹
+          search-paths: respo
+          username:186865@163.com
+          password:WANGCONG810
+
+server:
+  port: 8888
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

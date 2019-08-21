@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: hello-spring-cloud-zuul
+
+server:
+  port: 8769
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+#用zuul 实现 api网关 实现restfulAPi风格进行路由转发管理
+#如： 一个APP端页面有多个服务，分为多种类型。
+#路由说明：
+#以 /api/a 开头的请求都转发给 hello-spring-cloud-web-admin-ribbon 服务
+#以 /api/b 开头的请求都转发给 hello-spring-cloud-web-admin-feign 服务
+#测试访问
+#依次运行 EurekaApplication、ServiceAdminApplication、
+#WebAdminRibbonApplication、WebAdminFeignApplication、
+#ZuulApplication
+#
+#打开浏览器访问：http://localhost:8769/api/a/hi?message=HelloZuul 浏览器显示
+#
+#Hi，your message is :"HelloZuul" i am from port：8763
+#
+#打开浏览器访问：http://localhost:8769/api/b/hi?message=HelloZuul 浏览器显示
+#
+#Hi，your message is :"HelloZuul" i am from port：8763
+#
+#至此说明 Zuul 的路由功能配置成功
+zuul:
+  routes:
+    api-a:
+      path: /api/a/**
+      serviceId: hello-spring-cloud-web-admin-ribbon
+    api-b:
+      path: /api/b/**
+      serviceId: hello-spring-cloud-web-admin-feign

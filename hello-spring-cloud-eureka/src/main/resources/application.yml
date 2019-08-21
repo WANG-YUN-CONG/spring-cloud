@@ -1,0 +1,19 @@
+# 服务注册发现 根据获取这个名称查找
+spring:
+  application:
+    name: hello-spring-cloud-eureka
+
+server:
+  port: 8761
+
+#// eureka地址
+eureka:
+  instance:
+    hostname: localhost
+  client:
+#   两个参数设置为false 来表明自己是一个 Eureka Server 服务端
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+#                          // 地址                          端口
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
